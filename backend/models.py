@@ -10,26 +10,24 @@ from database import Base
 
 class ServiceType(str, enum.Enum):
     AI_CHATBOT_DEVELOPMENT       = "ai_chatbot_development"
-    WORKFLOW_AUTOMATION          = "workflow_automation"
     AI_CUSTOMER_SUPPORT          = "ai_customer_support"
     CUSTOM_BUSINESS_DASHBOARDS   = "custom_business_dashboards"
     AI_POWERED_WEBSITES          = "ai_powered_websites"
     AI_VOICE_ASSISTANTS          = "ai_voice_assistants"
     INTERNAL_AI_TOOLS            = "internal_ai_tools"
     WEB_DEVELOPMENT              = "web_development"
-    GRAPHIC_DESIGN               = "graphic_design"
+   
 
 
 SERVICE_LABELS: dict[ServiceType, str] = {
     ServiceType.AI_CHATBOT_DEVELOPMENT:     "AI Chatbot Development",
-    ServiceType.WORKFLOW_AUTOMATION:        "Workflow Automation",
     ServiceType.AI_CUSTOMER_SUPPORT:        "AI Customer Support Systems",
     ServiceType.CUSTOM_BUSINESS_DASHBOARDS: "Custom Business Dashboards",
     ServiceType.AI_POWERED_WEBSITES:        "AI Powered Websites",
     ServiceType.AI_VOICE_ASSISTANTS:        "AI Voice Assistants",
     ServiceType.INTERNAL_AI_TOOLS:          "Internal AI Tools for Companies",
     ServiceType.WEB_DEVELOPMENT:            "Web Development",
-    ServiceType.GRAPHIC_DESIGN:             "Graphic Design",
+
 }
 
 

@@ -27,3 +27,12 @@
 2026-05-27 11:12:21 | INFO     | __main__ — Starting up — creating database tables if not present …
 2026-05-27 11:12:26 | INFO     | __main__ — Database tables ready.
 2026-05-27 11:14:05 | INFO     | __main__ — Shutting down.
+2026-05-29 16:52:02 | INFO     | __main__ — Starting up — creating database tables if not present …
+2026-05-29 16:52:03 | INFO     | __main__ — Database tables ready.
+2026-05-29 16:52:03 | INFO     | __main__ — Shutting down.
+2026-05-29 16:52:33 | INFO     | __main__ — Starting up — creating database tables if not present …
+2026-05-29 16:52:33 | INFO     | __main__ — Database tables ready.
+2026-05-29 16:54:03 | WARNING  | routes — Business rule violation: Please provide at least 5 words describing your project.
+2026-05-29 16:54:13 | INFO     | repository — Saved submission id=b1d19031-06f2-4395-8911-ba65b5709c70
+2026-05-29 16:54:13 | INFO     | email_service — Preparing notification email for submission b1d19031-06f2-4395-8911-ba65b5709c70 to 2 recipient(s): jeevadarshan71@gmail.com, viswa3104@gmail.com
+2026-05-29 16:54:18 | INFO     | email_service — Notification sent for submission b1d19031-06f2-4395-8911-ba65b5709c70 via smtp.gmail.com:587
