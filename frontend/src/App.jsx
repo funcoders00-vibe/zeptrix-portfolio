@@ -790,9 +790,9 @@ function Footer({ navigate }) {
           <a href="contact.html" onClick={(e) => navigate(e, "contact.html", "contact")}>Contact</a>
         </div>
         <div className="footer-social">
-          <a className="social-btn" href="https://www.instagram.com/zeptrixinfo" target="_blank" aria-label="Instagram"><i className="fab fa-instagram"></i></a>
-          <a className="social-btn" href="https://www.linkedin.com/company/zeptrix-tech-labs" target="_blank" aria-label="LinkedIn"><i className="fab fa-linkedin-in"></i></a>
-          <a className="social-btn" href="mailto:zeptrixinfo@gmail.com" aria-label="Email"><i className="fas fa-envelope"></i></a>
+          <a className="social-btn" href="https://www.instagram.com/zeptrix.in" target="_blank" aria-label="Instagram"><i className="fab fa-instagram"></i></a>
+          <a className="social-btn" href="https://www.linkedin.com/in/zeptrix-in-76b054411" target="_blank" aria-label="LinkedIn"><i className="fab fa-linkedin-in"></i></a>
+          <a className="social-btn" href="mailto:viswa3104@gmail.com" aria-label="Email"><i className="fas fa-envelope"></i></a>
         </div>
         <div className="footer-copy">
           © 2026 ZEPTRIX. All rights reserved.
