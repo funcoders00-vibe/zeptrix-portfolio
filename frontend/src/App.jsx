@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 
 
 
-const API_BASE_URL = window.ZEPTRIX_API_BASE_URL || "http://localhost:8000";
+const API_BASE_URL = window.ZEPTRIX_API_BASE_URL || "https://zeptrix-portfolio.onrender.com";
 const API_URL = `${API_BASE_URL}/api/v1/contact`;
 
 const routes = {
