@@ -27,13 +27,16 @@ class Settings(BaseSettings):
     DEBUG: bool = False
 
     model_config = SettingsConfigDict(
-        env_file=ENV_FILE,
+        env_file=ENV_FILE if ENV_FILE.exists() else None,
         env_file_encoding="utf-8",
         case_sensitive=True,
         extra="ignore",
     )
 
 
-settings = Settings()
-
-print("Loaded recipients:", settings.ORG_RECIPIENTS)
+try:
+    settings = Settings()
+    print("Loaded recipients:", settings.ORG_RECIPIENTS)
+except Exception as e:
+    print(f"FATAL: Failed to load settings: {e}")
+    raise
