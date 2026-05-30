@@ -446,9 +446,9 @@ function Why() {
             </div>
           </div>
           <div className="stats-grid reveal reveal-delay-2">
-            <StatCard targetCount={50} suffix="+" label="Projects Delivered" />
-            <StatCard targetCount={11} suffix="" label="Core Technologies" />
-            <StatCard targetCount={30} suffix="+" label="AI Solutions Built" />
+            <StatCard targetCount={3} suffix="+" label="Projects Delivered" />
+            <StatCard targetCount={4} suffix="" label="Core Technologies" />
+            <StatCard targetCount={4} suffix="+" label="AI Solutions Built" />
             <StatCard targetCount={98} suffix="%" label="Client Satisfaction" />
           </div>
         </div>
@@ -633,19 +633,19 @@ function Contact() {
                 <div className="ch-icon"><i className="fas fa-phone"></i></div>
                 <div><div className="ch-label">Primary</div><div className="ch-value">+91 73586 26592</div></div>
               </a>
-              <a className="contact-channel" href="tel:+919361977522">
+              <a className="contact-channel" href="tel:+918778785566">
                 <div className="ch-icon"><i className="fas fa-signal"></i></div>
                 <div><div className="ch-label">Studio</div><div className="ch-value">+91 8778785566</div></div>
               </a>
-              <a className="contact-channel" href="mailto:zeptrixinfo@gmail.com">
+              <a className="contact-channel" href="mailto:visswa3104@gmail.com">
                 <div className="ch-icon"><i className="fas fa-envelope"></i></div>
-                <div><div className="ch-label">Email</div><div className="ch-value">zeptrixinfo@zeptrix.in</div></div>
+                <div><div className="ch-label">Email</div><div className="ch-value">viswa3104@gmail.com</div></div>
               </a>
-              <a className="contact-channel" href="https://www.instagram.com/zeptrixinfo" target="_blank">
+              <a className="contact-channel" href="https://www.instagram.com/zeptrix.in" target="_blank">
                 <div className="ch-icon"><i className="fab fa-instagram"></i></div>
                 <div><div className="ch-label">Instagram</div><div className="ch-value">@zeptrixinfo</div></div>
               </a>
-              <a className="contact-channel" href="https://www.linkedin.com/company/zeptrix-tech-labs" target="_blank">
+              <a className="contact-channel" href="https://www.linkedin.com/in/zeptrix-in-76b054411" target="_blank">
                 <div className="ch-icon"><i className="fab fa-linkedin-in"></i></div>
                 <div><div className="ch-label">LinkedIn</div><div className="ch-value">ZEPTRIX</div></div>
               </a>
