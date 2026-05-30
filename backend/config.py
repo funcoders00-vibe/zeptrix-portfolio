@@ -18,7 +18,9 @@ class Settings(BaseSettings):
     SMTP_PASSWORD: str
     EMAIL_FROM: str
     EMAIL_FROM_NAME: str
-
+    RESEND_API_KEY: str
+    EMAIL_FROM: str = "onboarding@resend.dev"
+    EMAIL_FROM_NAME: str = "Zeptrix"
     # Organisation recipients
     ORG_RECIPIENTS: List[str]
 

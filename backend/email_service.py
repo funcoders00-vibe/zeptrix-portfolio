@@ -3,14 +3,12 @@
 import smtplib
 import logging
 
-
-
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
+import resend
 from typing import List
 
 from config import settings
 from models import ContactSubmission, SERVICE_LABELS
+resend.api_key = settings.RESEND_API_KEY
 
 logger = logging.getLogger(__name__)
 
@@ -95,20 +93,17 @@ def _build_plain(submission: ContactSubmission) -> str:
         f"Submitted   : {submission.created_at.strftime('%d %b %Y, %I:%M %p UTC')}\n"
     )
 
-
 def send_notification_email(submission: ContactSubmission) -> None:
-    # Create a SAFE COPY of recipients
+    recipients: List[str] = list(settings.ORG_RECIPIENTS)
+
     print("EMAIL SERVICE FILE LOADED")
     print(__file__)
-    recipients: List[str] = list(settings.ORG_RECIPIENTS)
-    
-    # Debug prints
+
     print("SETTINGS RECIPIENTS:", settings.ORG_RECIPIENTS)
     print("LOCAL RECIPIENTS:", recipients)
-    print("JOINED RECIPIENTS:", ", ".join(recipients))
 
     if not recipients:
-        logger.warning("No ORG_RECIPIENTS configured — skipping notification.")
+        logger.warning("No ORG_RECIPIENTS configured.")
         return
 
     logger.info(
@@ -118,60 +113,36 @@ def send_notification_email(submission: ContactSubmission) -> None:
         ", ".join(recipients),
     )
 
-    label = SERVICE_LABELS.get(submission.service, submission.service.value)
+    label = SERVICE_LABELS.get(
+        submission.service,
+        submission.service.value,
+    )
 
-    msg = MIMEMultipart("alternative")
-
-    # Subject
-    msg["Subject"] = f"[Zeptrix Lead] {submission.name} — {label}"
-
-    # Sender
-    msg["From"] = f"{settings.EMAIL_FROM_NAME} <{settings.EMAIL_FROM}>"
-
-    # Receiver
-    msg["To"] = ", ".join(recipients)
-
-    # Reply-To (very important)
-    msg["Reply-To"] = submission.email
-
-    # Email body
     plain_body = _build_plain(submission)
     html_body = _build_html(submission)
 
-    msg.attach(MIMEText(plain_body, "plain"))
-    msg.attach(MIMEText(html_body, "html"))
-
-    # Debug email content
-    print("EMAIL FROM:", settings.EMAIL_FROM)
-    print("EMAIL TO:", recipients)
-    print("EMAIL SUBJECT:", msg["Subject"])
-
     try:
-        with smtplib.SMTP(settings.SMTP_HOST, settings.SMTP_PORT) as srv:
-            srv.ehlo()
-
-            # Enable TLS
-            srv.starttls()
-
-            # Login
-            srv.login(settings.SMTP_USER, settings.SMTP_PASSWORD)
-
-            # Send mail
-            result = srv.sendmail(settings.EMAIL_FROM, recipients, msg.as_string())
-
-            print("SMTP RESULT:", result)
-            print("FINAL RECIPIENTS:", recipients)
-
-        logger.info(
-            "Notification sent for submission %s via %s:%s",
-            submission.id,
-            settings.SMTP_HOST,
-            settings.SMTP_PORT,
+        response = resend.Emails.send(
+            {
+                "from": f"{settings.EMAIL_FROM_NAME} <{settings.EMAIL_FROM}>",
+                "to": recipients,
+                "subject": f"[Zeptrix Lead] {submission.name} — {label}",
+                "html": html_body,
+                "text": plain_body,
+                "reply_to": submission.email,
+            }
         )
 
-    except smtplib.SMTPException as exc:
-        logger.error(
-            "SMTP failure for %s: %s",
+        print("RESEND RESPONSE:", response)
+
+        logger.info(
+            "Notification sent successfully for submission %s",
+            submission.id,
+        )
+
+    except Exception as exc:
+        logger.exception(
+            "Resend failed for submission %s: %s",
             submission.id,
             exc,
         )
