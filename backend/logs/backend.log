@@ -12,7 +12,7 @@
 2026-05-27 10:30:37 | INFO     | email_service — Notification sent for submission 9d9e901b-59e6-4e77-8880-b04c9514563a via smtp.gmail.com:587
 2026-05-27 10:36:14 | INFO     | __main__ — Shutting down.
 2026-05-27 10:36:24 | INFO     | __main__ — Starting up — creating database tables if not present …
-2026-05-27 10:36:24 | INFO     | __main__ — Database tables ready.
+2026-05-27 10:36:24 | INFO     | __main__ — Database tables ready.  
 2026-05-27 10:36:38 | INFO     | repository — Saved submission id=ec2b5d69-7440-45a7-8232-4f197a19be74
 2026-05-27 10:36:38 | INFO     | email_service — Preparing notification email for submission ec2b5d69-7440-45a7-8232-4f197a19be74 to 2 recipient(s): jeevadarshan71@gmail.com, viswa3104@gmail.com
 2026-05-27 10:36:42 | INFO     | email_service — Notification sent for submission ec2b5d69-7440-45a7-8232-4f197a19be74 via smtp.gmail.com:587
