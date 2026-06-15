@@ -1,7 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 
-
-
 const API_BASE_URL = window.ZEPTRIX_API_BASE_URL || "https://zeptrix-portfolio.onrender.com";
 const API_URL = `${API_BASE_URL}/api/v1/contact`;
 
@@ -21,9 +19,54 @@ const backendServices = [
   ["custom_business_dashboards", "Custom Business Dashboards"],
   ["ai_voice_assistants", "AI Voice Assistants"],
   ["internal_ai_tools", "Internal AI Tools"],
-  
 ];
 
+/* ─────────────────────────────────────────────────────────
+   SERVICE SLIDE DATA  (used in Hero strip)
+───────────────────────────────────────────────────────── */
+const serviceSlides = [
+  {
+    name: "Web Development",
+    tag: "Full Stack",
+    icon: "fas fa-globe",
+    bg: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=60",
+  },
+  {
+    name: "AI Powered Websites",
+    tag: "AI · Design",
+    icon: "fas fa-brain",
+    bg: "https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=400&q=60",
+  },
+  {
+    name: "AI Chatbot Development",
+    tag: "Conversational AI",
+    icon: "fas fa-comments",
+    bg: "https://images.unsplash.com/photo-1531746790731-6c087fecd65a?w=400&q=60",
+  },
+  {
+    name: "AI Customer Care Systems",
+    tag: "Automation",
+    icon: "fas fa-headset",
+    bg: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400&q=60",
+  },
+  {
+    name: "Custom Dashboards",
+    tag: "Analytics",
+    icon: "fas fa-chart-line",
+    bg: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&q=60",
+  },
+  
+  {
+    name: "Internal AI Tools",
+    tag: "Enterprise",
+    icon: "fas fa-cogs",
+    bg: "https://images.unsplash.com/photo-1573164713988-8665fc963095?w=400&q=60",
+  },
+];
+
+/* ═══════════════════════════════════════════════════════
+   APP
+═══════════════════════════════════════════════════════ */
 function App() {
   const [route, setRoute] = useState(getRoute());
   const [menuOpen, setMenuOpen] = useState(false);
@@ -37,26 +80,16 @@ function App() {
   useEffect(() => {
     const titles = {
       home: "ZEPTRIX | Engineering the Future Through AI",
-      services: "Services | ZEPTRIX ",
-      about: "About | ZEPTRIX ",
+      services: "Services | ZEPTRIX",
+      about: "About | ZEPTRIX",
       contact: "Contact | ZEPTRIX",
     };
     document.title = titles[route] || "ZEPTRIX | Engineering the Future Through AI";
 
-    const targetSection = {
-      home: "hero",
-      services: "services",
-      about: "discovery",
-      contact: "contact"
-    }[route];
-
+    const targetSection = { home: "hero", services: "services", about: "discovery", contact: "contact" }[route];
     if (targetSection) {
       const el = document.getElementById(targetSection);
-      if (el) {
-        setTimeout(() => {
-          el.scrollIntoView({ behavior: "smooth" });
-        }, 100);
-      }
+      if (el) setTimeout(() => el.scrollIntoView({ behavior: "smooth" }), 100);
     }
   }, [route]);
 
@@ -74,22 +107,12 @@ function App() {
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-          }
-        });
-      },
+      (entries) => entries.forEach((e) => { if (e.isIntersecting) e.target.classList.add("visible"); }),
       { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
     );
-
     const targets = document.querySelectorAll(".reveal");
     targets.forEach((t) => observer.observe(t));
-
-    return () => {
-      targets.forEach((t) => observer.unobserve(t));
-    };
+    return () => targets.forEach((t) => observer.unobserve(t));
   }, [route]);
 
   const navigate = (event, href, routeKey) => {
@@ -105,8 +128,9 @@ function App() {
       <div className="noise" aria-hidden="true" />
       <div className="mouse-glow" id="mouse-glow" aria-hidden="true" />
 
-      <a className="whatsapp-fab" href="https://wa.me/919342629275" target="_blank" aria-label="WhatsApp">
-        <i className="fab fa-whatsapp"></i><span className="fab-text">Contact Us</span>
+      <a className="whatsapp-fab" href="https://wa.me/919342629275" target="_blank" rel="noreferrer" aria-label="WhatsApp">
+        <i className="fab fa-whatsapp"></i>
+        <span className="fab-text">Contact Us</span>
       </a>
 
       <Header route={route} navigate={navigate} menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
@@ -132,13 +156,22 @@ function getRoute() {
   return routes[`/${fileName}`] || routes[window.location.pathname] || "home";
 }
 
+/* ═══════════════════════════════════════════════════════
+   HEADER
+═══════════════════════════════════════════════════════ */
 function Header({ route, navigate, menuOpen, setMenuOpen }) {
   return (
     <header className="site-header">
       <nav className="navbar" id="navbar">
-        <a className="brand" href="index.html" onClick={(e) => navigate(e, "index.html", "home")} aria-label="ZEPTRIX home">
+        <a
+          className="brand"
+          href="index.html"
+          onClick={(e) => navigate(e, "index.html", "home")}
+          aria-label="ZEPTRIX home"
+        >
           <span className="logo-text">ZEP<span>TRIX</span></span>
         </a>
+
         <button
           className={`menu-toggle ${menuOpen ? "open" : ""}`}
           id="menu-toggle"
@@ -148,24 +181,68 @@ function Header({ route, navigate, menuOpen, setMenuOpen }) {
         >
           <span></span><span></span><span></span>
         </button>
+
         <ul className={`nav-links ${menuOpen ? "open" : ""}`} id="nav-links">
           <li>
-            <a className={route === "about" ? "active" : ""} href="about.html" onClick={(e) => navigate(e, "about.html", "about")}>Discover</a>
+            <a
+              className={route === "about" ? "active" : ""}
+              href="about.html"
+              onClick={(e) => navigate(e, "about.html", "about")}
+            >
+              Discover
+            </a>
           </li>
           <li>
-            <a href="#technologies" onClick={(e) => { e.preventDefault(); setMenuOpen(false); document.getElementById("technologies").scrollIntoView({ behavior: "smooth" }); }}>Tech</a>
+            <a
+              href="#technologies"
+              onClick={(e) => {
+                e.preventDefault();
+                setMenuOpen(false);
+                document.getElementById("technologies").scrollIntoView({ behavior: "smooth" });
+              }}
+            >
+              Tech
+            </a>
           </li>
           <li>
-            <a className={route === "services" ? "active" : ""} href="services.html" onClick={(e) => navigate(e, "services.html", "services")}>Services</a>
+            <a
+              className={route === "services" ? "active" : ""}
+              href="services.html"
+              onClick={(e) => navigate(e, "services.html", "services")}
+            >
+              Services
+            </a>
           </li>
           <li>
-            <a href="#process" onClick={(e) => { e.preventDefault(); setMenuOpen(false); document.getElementById("process").scrollIntoView({ behavior: "smooth" }); }}>Process</a>
+            <a
+              href="#process"
+              onClick={(e) => {
+                e.preventDefault();
+                setMenuOpen(false);
+                document.getElementById("process").scrollIntoView({ behavior: "smooth" });
+              }}
+            >
+              Process
+            </a>
           </li>
           <li>
-            <a href="#portfolio" onClick={(e) => { e.preventDefault(); setMenuOpen(false); document.getElementById("portfolio").scrollIntoView({ behavior: "smooth" }); }}>Work</a>
+            <a
+              href="#portfolio"
+              onClick={(e) => {
+                e.preventDefault();
+                setMenuOpen(false);
+                document.getElementById("portfolio").scrollIntoView({ behavior: "smooth" });
+              }}
+            >
+              Work
+            </a>
           </li>
         </ul>
-        <button className="nav-cta" onClick={() => document.getElementById("contact").scrollIntoView({ behavior: "smooth" })}>
+
+        <button
+          className="nav-cta"
+          onClick={() => document.getElementById("contact").scrollIntoView({ behavior: "smooth" })}
+        >
           Start Project
         </button>
       </nav>
@@ -173,24 +250,26 @@ function Header({ route, navigate, menuOpen, setMenuOpen }) {
   );
 }
 
+/* ═══════════════════════════════════════════════════════
+   HERO  (with service image strip)
+═══════════════════════════════════════════════════════ */
 function Hero() {
   const canvasRef = useRef(null);
 
+  /* particle canvas */
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
     let animationId;
-    let particles = [];
-    
+
     const resize = () => {
       canvas.width = canvas.offsetWidth;
       canvas.height = canvas.offsetHeight;
     };
-    
     resize();
     window.addEventListener("resize", resize);
-    
+
     class Particle {
       constructor() {
         this.x = Math.random() * canvas.width;
@@ -200,14 +279,12 @@ function Hero() {
         this.radius = Math.random() * 1.5 + 0.5;
         this.alpha = Math.random() * 0.5 + 0.2;
       }
-      
       update() {
         this.x += this.vx;
         this.y += this.vy;
         if (this.x < 0 || this.x > canvas.width) this.vx = -this.vx;
         if (this.y < 0 || this.y > canvas.height) this.vy = -this.vy;
       }
-      
       draw() {
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
@@ -215,26 +292,20 @@ function Hero() {
         ctx.fill();
       }
     }
-    
-    for (let i = 0; i < 45; i++) {
-      particles.push(new Particle());
-    }
-    
+
+    const particles = Array.from({ length: 45 }, () => new Particle());
+
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      particles.forEach(p => {
-        p.update();
-        p.draw();
-      });
-      
+      particles.forEach((p) => { p.update(); p.draw(); });
+
       ctx.strokeStyle = "rgba(59, 130, 246, 0.04)";
       ctx.lineWidth = 0.5;
       for (let i = 0; i < particles.length; i++) {
         for (let j = i + 1; j < particles.length; j++) {
           const dx = particles[i].x - particles[j].x;
           const dy = particles[i].y - particles[j].y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 110) {
+          if (Math.sqrt(dx * dx + dy * dy) < 110) {
             ctx.beginPath();
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);
@@ -242,21 +313,30 @@ function Hero() {
           }
         }
       }
-      
       animationId = requestAnimationFrame(animate);
     };
-    
     animate();
-    
+
     return () => {
       cancelAnimationFrame(animationId);
       window.removeEventListener("resize", resize);
     };
   }, []);
 
+  /* duplicate slides for seamless infinite loop */
+  const slides = [...serviceSlides, ...serviceSlides];
+
   return (
     <section className="hero" id="hero">
-      <canvas ref={canvasRef} id="particles-canvas" aria-hidden="true" style={{ width: "100%", height: "100%" }}></canvas>
+      {/* particle canvas */}
+      <canvas
+        ref={canvasRef}
+        id="particles-canvas"
+        aria-hidden="true"
+        style={{ position: "absolute", inset: 0, width: "100%", height: "100%", pointerEvents: "none", zIndex: 1 }}
+      />
+
+      {/* hero copy */}
       <div className="hero-inner">
         <div className="hero-eyebrow">
           <i className="fas fa-circle-dot" style={{ fontSize: "8px" }}></i>
@@ -267,18 +347,49 @@ function Hero() {
           <span className="blue">Future Through AI</span>
         </h1>
         <p className="hero-sub">
-          ZEPTRIX builds AI-powered web platforms, intelligent software, and futuristic digital experiences that drive real business growth.
+          ZEPTRIX builds AI-powered web platforms, intelligent software, and futuristic digital
+          experiences that drive real business growth.
         </p>
         <div className="hero-btns">
-          <button className="btn-primary" onClick={() => document.getElementById("contact").scrollIntoView({ behavior: "smooth" })}>
+          <button
+            className="btn-primary"
+            onClick={() => document.getElementById("contact").scrollIntoView({ behavior: "smooth" })}
+          >
             <i className="fas fa-rocket"></i> Start a Project
           </button>
-          <button className="btn-ghost" onClick={() => document.getElementById("discovery").scrollIntoView({ behavior: "smooth" })}>
+          <button
+            className="btn-ghost"
+            onClick={() => document.getElementById("discovery").scrollIntoView({ behavior: "smooth" })}
+          >
             <i className="fas fa-play"></i> Explore Services
           </button>
         </div>
       </div>
-      <div className="scroll-indicator" onClick={() => document.getElementById("discovery").scrollIntoView({ behavior: "smooth" })}>
+
+      {/* ── SERVICE IMAGE STRIP ── */}
+      <div className="service-strip" aria-hidden="true">
+        <div className="strip-track">
+          {slides.map((s, i) => (
+            <div className="svc-slide" key={i}>
+              <div
+                className="svc-slide-bg"
+                style={{ backgroundImage: `url('${s.bg}')` }}
+              />
+              <div className="svc-slide-icon">
+                <i className={s.icon} />
+              </div>
+              <div className="svc-slide-tag">{s.tag}</div>
+              <div className="svc-slide-name">{s.name}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* scroll hint */}
+      <div
+        className="scroll-indicator"
+        onClick={() => document.getElementById("discovery").scrollIntoView({ behavior: "smooth" })}
+      >
         <span>Enter the System</span>
         <div className="scroll-line"></div>
       </div>
@@ -286,6 +397,9 @@ function Hero() {
   );
 }
 
+/* ═══════════════════════════════════════════════════════
+   DISCOVERY
+═══════════════════════════════════════════════════════ */
 function Discovery() {
   return (
     <section className="section discovery" id="discovery">
@@ -296,25 +410,47 @@ function Discovery() {
             <div className="section-label reveal">Intelligence & Innovation</div>
             <h2 className="section-title reveal reveal-delay-1">We Build Intelligent Digital Systems</h2>
             <p className="section-sub reveal reveal-delay-2">
-              AI-powered platforms, modern interfaces, and scalable technology designed for the next generation of business.
+              AI-powered platforms, modern interfaces, and scalable technology designed for the next
+              generation of business.
             </p>
             <div style={{ display: "flex", flexDirection: "column", gap: "16px" }} className="reveal reveal-delay-3">
-              <div className="why-point" style={{ padding: "20px", background: "var(--glass)", borderColor: "var(--glass-border)", border: "1px solid var(--glass-border)", borderRadius: "16px" }}>
+              <div
+                className="why-point"
+                style={{
+                  padding: "20px",
+                  background: "var(--glass)",
+                  border: "1px solid var(--glass-border)",
+                  borderRadius: "16px",
+                }}
+              >
                 <div className="wp-icon"><i className="fas fa-brain"></i></div>
                 <div>
                   <div className="wp-title">AI-First Architecture</div>
-                  <div className="wp-desc">Every system we build is designed with AI capabilities at its core, not as an afterthought.</div>
+                  <div className="wp-desc">
+                    Every system we build is designed with AI capabilities at its core, not as an afterthought.
+                  </div>
                 </div>
               </div>
-              <div className="why-point" style={{ padding: "20px", background: "var(--glass)", borderColor: "var(--glass-border)", border: "1px solid var(--glass-border)", borderRadius: "16px" }}>
+              <div
+                className="why-point"
+                style={{
+                  padding: "20px",
+                  background: "var(--glass)",
+                  border: "1px solid var(--glass-border)",
+                  borderRadius: "16px",
+                }}
+              >
                 <div className="wp-icon"><i className="fas fa-shield-halved"></i></div>
                 <div>
                   <div className="wp-title">Production-Grade Engineering</div>
-                  <div className="wp-desc">From MVP to scale — we deliver robust, maintainable code with full-stack precision.</div>
+                  <div className="wp-desc">
+                    From MVP to scale — we deliver robust, maintainable code with full-stack precision.
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+
           <div className="discovery-visual reveal reveal-delay-2">
             <div className="holo-orb">
               <div className="orb-ring"></div>
@@ -341,17 +477,20 @@ function Discovery() {
   );
 }
 
+/* ═══════════════════════════════════════════════════════
+   TECHNOLOGIES
+═══════════════════════════════════════════════════════ */
 const techStack = [
-  ["ReactJS", "fab fa-react", "Component-based UI with interactive, responsive flows"],
-  ["FastAPI", "fas fa-bolt", "High-performance Python backend for APIs & validation"],
-  ["PostgreSQL", "fas fa-database", "Structured database layer for production data"],
-  ["MongoDB", "fas fa-database", "Flexible document database for unstructured application data"],
-  ["Supabase", "fas fa-server", "Open-source backend-as-a-service providing auth, database, and APIs"],
-  ["LangChain", "fas fa-link", "Composable AI workflows & application orchestration"],
-  ["RAG Systems", "fas fa-magnifying-glass", "AI responses grounded in real business data"],
-  ["GitHub", "fab fa-github", "Version control, collaborative development, and automated CI/CD pipelines"],
-  ["Vercel", "fas fa-cloud", "Serverless deployment platform for high-performance frontend interfaces"],
-  ["Render", "fas fa-network-wired", "Modern cloud hosting for backend services, databases, and static sites"]
+  ["ReactJS",     "fab fa-react",             "Component-based UI with interactive, responsive flows"],
+  ["FastAPI",     "fas fa-bolt",              "High-performance Python backend for APIs & validation"],
+  ["PostgreSQL",  "fas fa-database",          "Structured database layer for production data"],
+  ["MongoDB",     "fas fa-database",          "Flexible document database for unstructured application data"],
+  ["Supabase",    "fas fa-server",            "Open-source backend-as-a-service providing auth, database, and APIs"],
+  ["LangChain",   "fas fa-link",              "Composable AI workflows & application orchestration"],
+  ["RAG Systems", "fas fa-magnifying-glass",  "AI responses grounded in real business data"],
+  ["GitHub",      "fab fa-github",            "Version control, collaborative development, and automated CI/CD pipelines"],
+  ["Vercel",      "fas fa-cloud",             "Serverless deployment platform for high-performance frontend interfaces"],
+  ["Render",      "fas fa-network-wired",     "Modern cloud hosting for backend services, databases, and static sites"],
 ];
 
 function Technologies() {
@@ -359,10 +498,13 @@ function Technologies() {
     <section className="section tech-section" id="technologies">
       <div className="container">
         <div style={{ textAlign: "center", maxWidth: "700px", margin: "0 auto 64px" }}>
-          <div className="section-label reveal" style={{ justifyContent: "center" }}>ZEPTRIX Control Center</div>
+          <div className="section-label reveal" style={{ justifyContent: "center" }}>
+            ZEPTRIX Control Center
+          </div>
           <h2 className="section-title reveal reveal-delay-1">The Stack That Powers the Future</h2>
           <p className="section-sub reveal reveal-delay-2" style={{ marginLeft: "auto", marginRight: "auto" }}>
-            Entering the ZEPTRIX technology core — a carefully selected arsenal of modern tools built for AI-era production systems.
+            Entering the ZEPTRIX technology core — a carefully selected arsenal of modern tools built for
+            AI-era production systems.
           </p>
         </div>
         <div className="tech-grid">
@@ -379,13 +521,16 @@ function Technologies() {
   );
 }
 
+/* ═══════════════════════════════════════════════════════
+   SERVICES
+═══════════════════════════════════════════════════════ */
 const serviceCards = [
-  ["fas fa-globe", "AI Web Applications", "Intelligent, responsive platforms powered by LLMs and modern React architecture. Every interface is designed to convert and engage.", "React + FastAPI"],
-  ["fas fa-layer-group", "SaaS Development", "Full-stack SaaS platforms from idea to launch. Multi-tenant architecture, authentication, billing, and dashboards included.", "Full Stack"],
-  ["fas fa-comments", "AI Chatbots", "Context-aware, LangChain-powered chatbots that handle support, sales, and internal Q&A with precision and personality.", "LangChain + LLM"],
-  ["fas fa-gears", "Workflow Automation", "Replace repetitive manual tasks with intelligent AI agents. From data pipelines to customer journeys — automated end-to-end.", "AI Agents"],
-  ["fas fa-chart-line", "Dashboard Systems", "Real-time analytics dashboards that visualize your most critical KPIs. Beautiful, fast, and connected to live data sources.", "Data + UI"],
-  ["fas fa-server", "Backend APIs", "Scalable FastAPI services with PostgreSQL, authentication, rate limiting, webhooks, and complete API documentation.", "FastAPI + PostgreSQL"]
+  ["fas fa-globe",       "AI Web Applications", "Intelligent, responsive platforms powered by LLMs and modern React architecture. Every interface is designed to convert and engage.", "React + FastAPI"],
+  ["fas fa-layer-group", "SaaS Development",    "Full-stack SaaS platforms from idea to launch. Multi-tenant architecture, authentication, billing, and dashboards included.", "Full Stack"],
+  ["fas fa-comments",    "AI Chatbots",         "Context-aware, LangChain-powered chatbots that handle support, sales, and internal Q&A with precision and personality.", "LangChain + LLM"],
+  ["fas fa-gears",       "Workflow Automation",  "Replace repetitive manual tasks with intelligent AI agents. From data pipelines to customer journeys — automated end-to-end.", "AI Agents"],
+  ["fas fa-chart-line",  "Dashboard Systems",   "Real-time analytics dashboards that visualize your most critical KPIs. Beautiful, fast, and connected to live data sources.", "Data + UI"],
+  ["fas fa-server",      "Backend APIs",        "Scalable FastAPI services with PostgreSQL, authentication, rate limiting, webhooks, and complete API documentation.", "FastAPI + PostgreSQL"],
 ];
 
 function Services() {
@@ -397,7 +542,8 @@ function Services() {
           <div className="section-label reveal" style={{ justifyContent: "center" }}>AI Laboratory</div>
           <h2 className="section-title reveal reveal-delay-1">What We Build</h2>
           <p className="section-sub reveal reveal-delay-2" style={{ marginLeft: "auto", marginRight: "auto" }}>
-            From intelligent web apps to autonomous automation pipelines — these are the digital systems we engineer for visionary companies.
+            From intelligent web apps to autonomous automation pipelines — these are the digital systems
+            we engineer for visionary companies.
           </p>
         </div>
         <div className="services-grid">
@@ -415,11 +561,14 @@ function Services() {
   );
 }
 
+/* ═══════════════════════════════════════════════════════
+   WHY
+═══════════════════════════════════════════════════════ */
 const whyPoints = [
   ["fas fa-expand-arrows-alt", "Scalable Architecture", "Built from day one to grow with your business — no rewrites, no technical debt nightmares."],
-  ["fas fa-gem", "Premium UI Design", "Interfaces that feel expensive and build instant trust with every user who lands on your platform."],
-  ["fas fa-microchip", "AI-First Thinking", "We don't bolt on AI — we design intelligence into every layer of the system from the start."],
-  ["fas fa-shipping-fast", "Fast Delivery", "Momentum matters. We move quickly without cutting corners, delivering quality on clear timelines."]
+  ["fas fa-gem",               "Premium UI Design",     "Interfaces that feel expensive and build instant trust with every user who lands on your platform."],
+  ["fas fa-microchip",         "AI-First Thinking",     "We don't bolt on AI — we design intelligence into every layer of the system from the start."],
+  ["fas fa-shipping-fast",     "Fast Delivery",         "Momentum matters. We move quickly without cutting corners, delivering quality on clear timelines."],
 ];
 
 function Why() {
@@ -429,9 +578,12 @@ function Why() {
         <div className="why-grid">
           <div>
             <div className="section-label reveal">Why Choose Us</div>
-            <h2 className="section-title reveal reveal-delay-1">Built for Visionaries.<br />Engineered for Growth.</h2>
+            <h2 className="section-title reveal reveal-delay-1">
+              Built for Visionaries.<br />Engineered for Growth.
+            </h2>
             <p className="section-sub reveal reveal-delay-2">
-              We combine cinematic design with practical AI engineering. Every project is built to last, scale, and deliver measurable business outcomes.
+              We combine cinematic design with practical AI engineering. Every project is built to last,
+              scale, and deliver measurable business outcomes.
             </p>
             <div className="why-points">
               {whyPoints.map(([icon, title, desc], index) => (
@@ -446,9 +598,9 @@ function Why() {
             </div>
           </div>
           <div className="stats-grid reveal reveal-delay-2">
-            <StatCard targetCount={3} suffix="+" label="Projects Delivered" />
-            <StatCard targetCount={4} suffix="" label="Core Technologies" />
-            <StatCard targetCount={4} suffix="+" label="AI Solutions Built" />
+            <StatCard targetCount={3}  suffix="+" label="Projects Delivered" />
+            <StatCard targetCount={4}  suffix=""  label="Core Technologies" />
+            <StatCard targetCount={4}  suffix="+" label="AI Solutions Built" />
             <StatCard targetCount={98} suffix="%" label="Client Satisfaction" />
           </div>
         </div>
@@ -464,34 +616,21 @@ function StatCard({ targetCount, suffix, label }) {
   useEffect(() => {
     let observer;
     let frameId;
-    
     if (cardRef.current) {
       observer = new IntersectionObserver((entries) => {
         if (entries[0].isIntersecting) {
-          let start = 0;
-          const end = targetCount;
-          const duration = 2000;
           const startTime = performance.now();
-          
           const update = (now) => {
-            const progress = Math.min((now - startTime) / duration, 1);
-            const easeProgress = progress * (2 - progress);
-            const current = Math.floor(easeProgress * end);
-            setCount(current);
-            
-            if (progress < 1) {
-              frameId = requestAnimationFrame(update);
-            }
+            const progress = Math.min((now - startTime) / 2000, 1);
+            setCount(Math.floor(progress * (2 - progress) * targetCount));
+            if (progress < 1) frameId = requestAnimationFrame(update);
           };
-          
           frameId = requestAnimationFrame(update);
           observer.disconnect();
         }
       }, { threshold: 0.1 });
-      
       observer.observe(cardRef.current);
     }
-    
     return () => {
       if (observer) observer.disconnect();
       if (frameId) cancelAnimationFrame(frameId);
@@ -506,11 +645,14 @@ function StatCard({ targetCount, suffix, label }) {
   );
 }
 
+/* ═══════════════════════════════════════════════════════
+   PROCESS
+═══════════════════════════════════════════════════════ */
 const processSteps = [
   ["01", "Discover", "We map your audience, goals, workflow, and technical requirements before a single pixel is placed."],
-  ["02", "Design", "Screens, interactions, and content structure are prototyped around the outcome — conversion, trust, speed."],
-  ["03", "Build", "Frontend, backend, AI workflows, and data layers are engineered with precision and connected with care."],
-  ["04", "Launch", "We test, polish, deploy, and prepare the system for real users — then support your growth beyond launch."]
+  ["02", "Design",   "Screens, interactions, and content structure are prototyped around the outcome — conversion, trust, speed."],
+  ["03", "Build",    "Frontend, backend, AI workflows, and data layers are engineered with precision and connected with care."],
+  ["04", "Launch",   "We test, polish, deploy, and prepare the system for real users — then support your growth beyond launch."],
 ];
 
 function Process() {
@@ -521,7 +663,8 @@ function Process() {
           <div className="section-label reveal" style={{ justifyContent: "center" }}>Mission Sequence</div>
           <h2 className="section-title reveal reveal-delay-1">The Build Journey</h2>
           <p className="section-sub reveal reveal-delay-2" style={{ marginLeft: "auto", marginRight: "auto" }}>
-            Every engagement follows a clear mission path — from signal to launch, every phase is designed for clarity and momentum.
+            Every engagement follows a clear mission path — from signal to launch, every phase is
+            designed for clarity and momentum.
           </p>
         </div>
         <div className="process-flow">
@@ -538,47 +681,15 @@ function Process() {
   );
 }
 
+/* ═══════════════════════════════════════════════════════
+   PORTFOLIO
+═══════════════════════════════════════════════════════ */
 const portfolioItems = [
-  {
-    tag: "AI Chatbot",
-    title: "Intelligent Support Bot",
-    desc: "Context-aware AI customer support system with RAG-powered knowledge retrieval.",
-    emoji: "🤖",
-    bg: "linear-gradient(135deg,#0B1023 0%,#1a2545 100%)",
-    tags: ["LangChain", "FastAPI"]
-  },
-  {
-    tag: "SaaS Dashboard",
-    title: "Analytics Platform",
-    desc: "Real-time KPI dashboard with AI-powered anomaly detection and automated reporting.",
-    emoji: "📊",
-    bg: "linear-gradient(135deg,#060d20 0%,#0d2040 100%)",
-    tags: ["React", "PostgreSQL"]
-  },
-  {
-    tag: "Automation",
-    title: "Workflow Engine",
-    desc: "End-to-end business process automation with AI agents replacing 40+ manual tasks daily.",
-    emoji: "⚡",
-    bg: "linear-gradient(135deg,#080f22 0%,#132240 100%)",
-    tags: ["AI Agents", "Python"]
-  },
-  {
-    tag: "Web Platform",
-    title: "AI-Powered SaaS",
-    desc: "Full-stack SaaS product with LLM integrations, multi-tenant architecture, and custom branding.",
-    emoji: "🌐",
-    bg: "linear-gradient(135deg,#060d1e 0%,#112035 100%)",
-    tags: ["Full Stack", "React"]
-  },
-  {
-    tag: "RAG System",
-    title: "Knowledge Platform",
-    desc: "Company-wide AI knowledge base with retrieval-augmented generation for instant answers.",
-    emoji: "🔍",
-    bg: "linear-gradient(135deg,#070e20 0%,#0c1d3a 100%)",
-    tags: ["RAG", "LLM"]
-  }
+  { tag: "AI Chatbot",     title: "Intelligent Support Bot", desc: "Context-aware AI customer support system with RAG-powered knowledge retrieval.",               emoji: "🤖", bg: "linear-gradient(135deg,#0B1023 0%,#1a2545 100%)", tags: ["LangChain","FastAPI"] },
+  { tag: "SaaS Dashboard", title: "Analytics Platform",      desc: "Real-time KPI dashboard with AI-powered anomaly detection and automated reporting.",           emoji: "📊", bg: "linear-gradient(135deg,#060d20 0%,#0d2040 100%)", tags: ["React","PostgreSQL"] },
+  { tag: "Automation",     title: "Workflow Engine",         desc: "End-to-end business process automation with AI agents replacing 40+ manual tasks daily.",     emoji: "⚡", bg: "linear-gradient(135deg,#080f22 0%,#132240 100%)", tags: ["AI Agents","Python"] },
+  { tag: "Web Platform",   title: "AI-Powered SaaS",        desc: "Full-stack SaaS product with LLM integrations, multi-tenant architecture, and custom branding.", emoji: "🌐", bg: "linear-gradient(135deg,#060d1e 0%,#112035 100%)", tags: ["Full Stack","React"] },
+  { tag: "RAG System",     title: "Knowledge Platform",     desc: "Company-wide AI knowledge base with retrieval-augmented generation for instant answers.",        emoji: "🔍", bg: "linear-gradient(135deg,#070e20 0%,#0c1d3a 100%)", tags: ["RAG","LLM"] },
 ];
 
 function Portfolio() {
@@ -587,18 +698,28 @@ function Portfolio() {
       <div className="container">
         <div className="section-label reveal">Portfolio Universe</div>
         <h2 className="section-title reveal reveal-delay-1">Systems We've Shipped</h2>
-        <p className="section-sub reveal reveal-delay-2">Scroll through the ZEPTRIX digital ecosystem — a showcase of AI platforms, intelligent tools, and premium interfaces.</p>
+        <p className="section-sub reveal reveal-delay-2">
+          Scroll through the ZEPTRIX digital ecosystem — a showcase of AI platforms, intelligent tools,
+          and premium interfaces.
+        </p>
       </div>
-      <div className="portfolio-scroll-wrap reveal reveal-delay-3" style={{ paddingLeft: "calc((100vw - 1200px)/2 + 24px)" }}>
+      <div
+        className="portfolio-scroll-wrap reveal reveal-delay-3"
+        style={{ paddingLeft: "calc((100vw - 1200px)/2 + 24px)" }}
+      >
         <div className="portfolio-track">
-          {portfolioItems.map((item, index) => (
+          {portfolioItems.map((item) => (
             <div key={item.title} className="portfolio-card">
               <div className="pc-bg" style={{ background: item.bg }}>
-                <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "80px", opacity: 0.12 }}>{item.emoji}</div>
-                <div style={{ position: "absolute", top: "20px", left: "20px", right: "20px", height: "1px", background: "linear-gradient(90deg,transparent,rgba(59,130,246,0.4),transparent)" }}></div>
+                <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "80px", opacity: 0.12 }}>
+                  {item.emoji}
+                </div>
+                <div style={{ position: "absolute", top: "20px", left: "20px", right: "20px", height: "1px", background: "linear-gradient(90deg,transparent,rgba(59,130,246,0.4),transparent)" }} />
                 <div style={{ position: "absolute", bottom: "60px", left: "20px", right: "20px", display: "flex", gap: "8px", flexWrap: "wrap" }}>
-                  {item.tags.map(t => (
-                    <div key={t} style={{ padding: "6px 14px", borderRadius: "8px", background: "rgba(59,130,246,0.15)", border: "1px solid rgba(59,130,246,0.3)", fontSize: "11px", color: "var(--blue)" }}>{t}</div>
+                  {item.tags.map((t) => (
+                    <div key={t} style={{ padding: "6px 14px", borderRadius: "8px", background: "rgba(59,130,246,0.15)", border: "1px solid rgba(59,130,246,0.3)", fontSize: "11px", color: "var(--blue)" }}>
+                      {t}
+                    </div>
                   ))}
                 </div>
               </div>
@@ -617,6 +738,9 @@ function Portfolio() {
   );
 }
 
+/* ═══════════════════════════════════════════════════════
+   CONTACT
+═══════════════════════════════════════════════════════ */
 function Contact() {
   return (
     <section className="section contact-section" id="contact">
@@ -626,26 +750,27 @@ function Contact() {
             <div className="section-label reveal">Transmission Portal</div>
             <h2 className="section-title reveal reveal-delay-1">Start Your Next Digital Evolution</h2>
             <p className="section-sub reveal reveal-delay-2">
-              Send a signal to the ZEPTRIX lab. Share your vision and we'll respond within 24 hours with the next practical step.
+              Send a signal to the ZEPTRIX lab. Share your vision and we'll respond within 24 hours
+              with the next practical step.
             </p>
             <div className="contact-channels reveal reveal-delay-3">
-              <a className="contact-channel" href="tel:+9173586 26592">
+              <a className="contact-channel" href="tel:+917358626592">
                 <div className="ch-icon"><i className="fas fa-phone"></i></div>
                 <div><div className="ch-label">Primary</div><div className="ch-value">+91 73586 26592</div></div>
               </a>
-              <a className="contact-channel" href="tel:+9193426 29275">
+              <a className="contact-channel" href="tel:+919342629275">
                 <div className="ch-icon"><i className="fas fa-signal"></i></div>
                 <div><div className="ch-label">Studio</div><div className="ch-value">+91 93426 29275</div></div>
               </a>
-              <a className="contact-channel" href="mailto:visswa3104@gmail.com">
+              <a className="contact-channel" href="mailto:viswa3104@gmail.com">
                 <div className="ch-icon"><i className="fas fa-envelope"></i></div>
                 <div><div className="ch-label">Email</div><div className="ch-value">viswa3104@gmail.com</div></div>
               </a>
-              <a className="contact-channel" href="https://www.instagram.com/zeptrix.in" target="_blank">
+              <a className="contact-channel" href="https://www.instagram.com/zeptrix.in" target="_blank" rel="noreferrer">
                 <div className="ch-icon"><i className="fab fa-instagram"></i></div>
                 <div><div className="ch-label">Instagram</div><div className="ch-value">@zeptrixinfo</div></div>
               </a>
-              <a className="contact-channel" href="https://www.linkedin.com/in/zeptrix-in-76b054411" target="_blank">
+              <a className="contact-channel" href="https://www.linkedin.com/in/zeptrix-in-76b054411" target="_blank" rel="noreferrer">
                 <div className="ch-icon"><i className="fab fa-linkedin-in"></i></div>
                 <div><div className="ch-label">LinkedIn</div><div className="ch-value">ZEPTRIX</div></div>
               </a>
@@ -668,8 +793,8 @@ function ContactForm() {
   const [success, setSuccess] = useState(false);
 
   const update = (field, value) => {
-    setForm((current) => ({ ...current, [field]: value }));
-    setErrors((current) => ({ ...current, [field]: "" }));
+    setForm((c) => ({ ...c, [field]: value }));
+    setErrors((c) => ({ ...c, [field]: "" }));
   };
 
   const validate = () => {
@@ -677,7 +802,7 @@ function ContactForm() {
     if (form.name.trim().length < 2) next.name = "Name must be at least 2 characters.";
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim())) next.email = "Enter a valid email address.";
     const digits = form.phone.replace(/[\s\-()+]/g, "");
-    if (!/^\d{7,15}$/.test(digits)) next.phone = "Phone must be 7-15 digits.";
+    if (!/^\d{7,15}$/.test(digits)) next.phone = "Phone must be 7–15 digits.";
     if (!form.service) next.service = "Please select a service.";
     if (form.description.trim().split(/\s+/).length < 3) next.description = "Please describe your project in at least 3 words.";
     if (!Number.isFinite(Number(form.budget)) || Number(form.budget) <= 0) next.budget = "Enter a valid positive budget.";
@@ -697,17 +822,14 @@ function ContactForm() {
         body: JSON.stringify({ ...form, budget: Number(form.budget) }),
       });
       const data = await response.json().catch(() => ({}));
-      if (response.ok) {
-        setSuccess(true);
-        return;
-      }
+      if (response.ok) { setSuccess(true); return; }
       if (response.status === 422 && Array.isArray(data.detail)) {
-        setGlobalError(data.detail.map((item) => item.msg).join(" "));
+        setGlobalError(data.detail.map((i) => i.msg).join(" "));
       } else {
         setGlobalError(typeof data.detail === "string" ? data.detail : "Something went wrong. Please try again.");
       }
-    } catch (error) {
-      setGlobalError("Could not reach the backend. Start FastAPI on http://localhost:8000 and try again.");
+    } catch {
+      setGlobalError("Could not reach the backend. Please try again later.");
     } finally {
       setLoading(false);
     }
@@ -718,8 +840,17 @@ function ContactForm() {
       <div className="form-success">
         <div className="success-orb"><i className="fas fa-check"></i></div>
         <h3 style={{ fontFamily: "var(--font-head)", fontSize: "28px", marginBottom: "12px" }}>Transmission Sent</h3>
-        <p style={{ color: "var(--muted)", marginBottom: "28px" }}>Your signal has been received. The ZEPTRIX team will respond within 24 hours.</p>
-        <button className="submit-btn" type="button" onClick={() => { setSuccess(false); setForm({ name: "", email: "", phone: "", service: "", description: "", currency: "INR", budget: "" }); }}>
+        <p style={{ color: "var(--muted)", marginBottom: "28px" }}>
+          Your signal has been received. The ZEPTRIX team will respond within 24 hours.
+        </p>
+        <button
+          className="submit-btn"
+          type="button"
+          onClick={() => {
+            setSuccess(false);
+            setForm({ name: "", email: "", phone: "", service: "", description: "", currency: "INR", budget: "" });
+          }}
+        >
           Send Another Signal
         </button>
       </div>
@@ -747,14 +878,16 @@ function ContactForm() {
         <label htmlFor="service">Service Required</label>
         <select id="service" value={form.service} onChange={(e) => update("service", e.target.value)} required>
           <option value="">Select a service</option>
-          {backendServices.map(([value, label]) => <option value={value} key={value}>{label}</option>)}
+          {backendServices.map(([value, label]) => (
+            <option value={value} key={value}>{label}</option>
+          ))}
         </select>
         {errors.service && <span className="field-error">{errors.service}</span>}
       </div>
       <div className="field full">
         <label htmlFor="budget">Estimated Budget</label>
         <div className="field-row">
-          <select id="currency" value={form.currency} onChange={(e) => update("currency", e.target.value)} style={{ width: "120px" }}>
+          <select id="currency" value={form.currency} onChange={(e) => update("currency", e.target.value)}>
             <option value="INR">INR</option>
             <option value="USD">USD</option>
           </select>
@@ -767,7 +900,11 @@ function ContactForm() {
         <textarea id="description" value={form.description} onChange={(e) => update("description", e.target.value)} placeholder="Describe your goals, requirements, timeline, etc." required />
         {errors.description && <span className="field-error">{errors.description}</span>}
       </div>
-      {globalError && <div className="field full field-error" style={{ textAlign: "center", padding: "10px", background: "rgba(248,113,113,0.1)", borderRadius: "8px" }}>{globalError}</div>}
+      {globalError && (
+        <div className="field full field-error" style={{ textAlign: "center", padding: "10px", background: "rgba(248,113,113,0.1)", borderRadius: "8px" }}>
+          {globalError}
+        </div>
+      )}
       <button className="submit-btn field full" type="submit" disabled={loading}>
         {loading ? <i className="fas fa-spinner fa-spin"></i> : <i className="fas fa-paper-plane"></i>}
         {loading ? " Transmitting..." : " Submit Transmission"}
@@ -776,87 +913,108 @@ function ContactForm() {
   );
 }
 
+/* ═══════════════════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════════════════ */
 function Footer({ navigate }) {
   return (
     <footer className="site-footer">
       <div className="footer-inner">
         <div className="footer-brand">
-          <div className="footer-logo-text">ZEP<span>TRIX</span></div>
-          <div className="footer-tagline">Engineering the Future Through AI</div>
+          <div>
+            <div className="footer-logo-text">ZEP<span>TRIX</span></div>
+            <div className="footer-tagline">Engineering the Future Through AI</div>
+          </div>
         </div>
         <div className="footer-links">
           <a href="services.html" onClick={(e) => navigate(e, "services.html", "services")}>Services</a>
-          <a href="about.html" onClick={(e) => navigate(e, "about.html", "about")}>About</a>
-          <a href="contact.html" onClick={(e) => navigate(e, "contact.html", "contact")}>Contact</a>
+          <a href="about.html"    onClick={(e) => navigate(e, "about.html",    "about")}>About</a>
+          <a href="contact.html"  onClick={(e) => navigate(e, "contact.html",  "contact")}>Contact</a>
         </div>
         <div className="footer-social">
-          <a className="social-btn" href="https://www.instagram.com/zeptrix.in" target="_blank" aria-label="Instagram"><i className="fab fa-instagram"></i></a>
-          <a className="social-btn" href="https://www.linkedin.com/in/zeptrix-in-76b054411" target="_blank" aria-label="LinkedIn"><i className="fab fa-linkedin-in"></i></a>
-          <a className="social-btn" href="mailto:viswa3104@gmail.com" aria-label="Email"><i className="fas fa-envelope"></i></a>
+          <a className="social-btn" href="https://www.instagram.com/zeptrix.in" target="_blank" rel="noreferrer" aria-label="Instagram">
+            <i className="fab fa-instagram"></i>
+          </a>
+          <a className="social-btn" href="https://www.linkedin.com/in/zeptrix-in-76b054411" target="_blank" rel="noreferrer" aria-label="LinkedIn">
+            <i className="fab fa-linkedin-in"></i>
+          </a>
+          <a className="social-btn" href="mailto:viswa3104@gmail.com" aria-label="Email">
+            <i className="fas fa-envelope"></i>
+          </a>
         </div>
-        <div className="footer-copy">
-          © 2026 ZEPTRIX. All rights reserved.
-        </div>
+        <div className="footer-copy">© 2026 ZEPTRIX. All rights reserved.</div>
       </div>
     </footer>
   );
 }
 
+/* ═══════════════════════════════════════════════════════
+   NEURAL SCENE (Three.js background)
+═══════════════════════════════════════════════════════ */
 function NeuralScene() {
   const canvasRef = useRef(null);
 
   useEffect(() => {
-    if (!canvasRef.current || !window.THREE || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return undefined;
+    if (!canvasRef.current || !window.THREE || window.matchMedia("(prefers-reduced-motion: reduce)").matches)
+      return undefined;
+
     const THREE = window.THREE;
     const renderer = new THREE.WebGLRenderer({ canvas: canvasRef.current, antialias: true, alpha: true });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.6));
+
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(55, 1, 0.1, 100);
     camera.position.set(0, 0, 8);
+
     const cyanColor = new THREE.Color("#00e5ff");
     const blueColor = new THREE.Color("#0066ff");
     scene.add(new THREE.AmbientLight(cyanColor, 0.9));
     const point = new THREE.PointLight(blueColor, 16, 18);
     point.position.set(3, 4, 4);
     scene.add(point);
+
     const group = new THREE.Group();
     scene.add(group);
-    group.add(new THREE.Mesh(new THREE.IcosahedronGeometry(1.35, 4), new THREE.MeshStandardMaterial({ color: "#05080c", emissive: "#00e5ff", emissiveIntensity: 0.18, metalness: 0.9, roughness: 0.18, wireframe: true })));
-    const ringGeometry = new THREE.TorusGeometry(2.05, 0.008, 12, 160);
-    const rings = [0, 1, 2].map((index) => {
-      const ring = new THREE.Mesh(ringGeometry, new THREE.MeshBasicMaterial({ color: cyanColor, transparent: true, opacity: 0.42 }));
-      ring.rotation.x = Math.PI / (index + 2);
-      ring.rotation.y = index * 0.75;
+
+    group.add(
+      new THREE.Mesh(
+        new THREE.IcosahedronGeometry(1.35, 4),
+        new THREE.MeshStandardMaterial({ color: "#05080c", emissive: "#00e5ff", emissiveIntensity: 0.18, metalness: 0.9, roughness: 0.18, wireframe: true })
+      )
+    );
+
+    const ringGeo = new THREE.TorusGeometry(2.05, 0.008, 12, 160);
+    const rings = [0, 1, 2].map((i) => {
+      const ring = new THREE.Mesh(ringGeo, new THREE.MeshBasicMaterial({ color: cyanColor, transparent: true, opacity: 0.42 }));
+      ring.rotation.x = Math.PI / (i + 2);
+      ring.rotation.y = i * 0.75;
       group.add(ring);
       return ring;
     });
+
     const pointer = { x: 0, y: 0 };
-    const move = (event) => {
-      pointer.x = (event.clientX / window.innerWidth - 0.5) * 2;
-      pointer.y = (event.clientY / window.innerHeight - 0.5) * 2;
-    };
-    const resize = () => {
-      renderer.setSize(window.innerWidth, window.innerHeight, false);
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-    };
-    window.addEventListener("pointermove", move, { passive: true });
-    window.addEventListener("resize", resize);
-    resize();
+    const onMove  = (e) => { pointer.x = (e.clientX / window.innerWidth - 0.5) * 2; pointer.y = (e.clientY / window.innerHeight - 0.5) * 2; };
+    const onResize = () => { renderer.setSize(window.innerWidth, window.innerHeight, false); camera.aspect = window.innerWidth / window.innerHeight; camera.updateProjectionMatrix(); };
+
+    window.addEventListener("pointermove", onMove, { passive: true });
+    window.addEventListener("resize", onResize);
+    onResize();
+
     let frame = 0;
     const animate = (now) => {
       const time = now * 0.001;
       group.rotation.y = time * 0.18 + pointer.x * 0.16;
       group.rotation.x = pointer.y * 0.12;
-      rings.forEach((ring, index) => { ring.rotation.z = time * (0.26 + index * 0.06); });
+      rings.forEach((ring, i) => { ring.rotation.z = time * (0.26 + i * 0.06); });
       renderer.render(scene, camera);
       frame = requestAnimationFrame(animate);
     };
     frame = requestAnimationFrame(animate);
+
     return () => {
       cancelAnimationFrame(frame);
-      window.removeEventListener("pointermove", move);
-      window.removeEventListener("resize", resize);
+      window.removeEventListener("pointermove", onMove);
+      window.removeEventListener("resize", onResize);
       renderer.dispose();
     };
   }, []);
