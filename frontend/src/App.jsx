@@ -105,7 +105,7 @@ function App() {
       <div className="noise" aria-hidden="true" />
       <div className="mouse-glow" id="mouse-glow" aria-hidden="true" />
 
-      <a className="whatsapp-fab" href="https://wa.me/9193426 29275" target="_blank" aria-label="WhatsApp">
+      <a className="whatsapp-fab" href="https://wa.me/919342629275" target="_blank" aria-label="WhatsApp">
         <i className="fab fa-whatsapp"></i><span className="fab-text">Contact Us</span>
       </a>
 
