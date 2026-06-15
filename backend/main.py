@@ -6,7 +6,8 @@ from fastapi import FastAPI, Request, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from pydantic import ValidationError
-
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 from config import settings
 from database import Base, engine
 from routes import router
@@ -83,10 +84,29 @@ async def generic_exception_handler(request: Request, exc: Exception):
 
 
 app.include_router(router)
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+FRONTEND_DIR = os.path.join(BASE_DIR, "../frontend/dist")
+
+app.mount("/assets", StaticFiles(directory=os.path.join(FRONTEND_DIR, "assets")), name="assets")
+@app.get("/logo.png")
+async def logo():
+    return FileResponse(os.path.join(FRONTEND_DIR, "logo.png"))
+
+@app.get("/favicon.svg")
+async def favicon():
+    return FileResponse(os.path.join(FRONTEND_DIR, "favicon.svg"))
+
+@app.get("/robots.txt")
+async def robots():
+    return FileResponse(os.path.join(FRONTEND_DIR, "robots.txt"))
+
+@app.get("/sitemap.xml")
+async def sitemap():
+    return FileResponse(os.path.join(FRONTEND_DIR, "sitemap.xml"))
 
 @app.get("/")
 async def root():
-    return {"message": "Zeptrix API Running"}
+    return FileResponse(os.path.join(FRONTEND_DIR, "index.html"))
 
 
 @app.get("/health", tags=["Health"])
