@@ -762,9 +762,9 @@ function Contact() {
                 <div className="ch-icon"><i className="fas fa-signal"></i></div>
                 <div><div className="ch-label">Studio</div><div className="ch-value">+91 93426 29275</div></div>
               </a>
-              <a className="contact-channel" href="mailto:viswa3104@gmail.com">
+              <a className="contact-channel" href="mailto:zeptrixinfo@gmail.com">
                 <div className="ch-icon"><i className="fas fa-envelope"></i></div>
-                <div><div className="ch-label">Email</div><div className="ch-value">viswa3104@gmail.com</div></div>
+                <div><div className="ch-label">Email</div><div className="ch-value">zeptrixinfo@gmail.com</div></div>
               </a>
               <a className="contact-channel" href="https://www.instagram.com/zeptrix.in" target="_blank" rel="noreferrer">
                 <div className="ch-icon"><i className="fab fa-instagram"></i></div>
@@ -938,7 +938,7 @@ function Footer({ navigate }) {
           <a className="social-btn" href="https://www.linkedin.com/in/zeptrix-in-76b054411" target="_blank" rel="noreferrer" aria-label="LinkedIn">
             <i className="fab fa-linkedin-in"></i>
           </a>
-          <a className="social-btn" href="mailto:viswa3104@gmail.com" aria-label="Email">
+          <a className="social-btn" href="mailto:zeptrixinfo@gmail.com" aria-label="Email">
             <i className="fas fa-envelope"></i>
           </a>
         </div>
