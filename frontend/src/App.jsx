@@ -105,7 +105,7 @@ function App() {
       <div className="noise" aria-hidden="true" />
       <div className="mouse-glow" id="mouse-glow" aria-hidden="true" />
 
-      <a className="whatsapp-fab" href="https://wa.me/918778785566" target="_blank" aria-label="WhatsApp">
+      <a className="whatsapp-fab" href="https://wa.me/9193426 29275" target="_blank" aria-label="WhatsApp">
         <i className="fab fa-whatsapp"></i><span className="fab-text">Contact Us</span>
       </a>
 
@@ -633,9 +633,9 @@ function Contact() {
                 <div className="ch-icon"><i className="fas fa-phone"></i></div>
                 <div><div className="ch-label">Primary</div><div className="ch-value">+91 73586 26592</div></div>
               </a>
-              <a className="contact-channel" href="tel:+918778785566">
+              <a className="contact-channel" href="tel:+9193426 29275">
                 <div className="ch-icon"><i className="fas fa-signal"></i></div>
-                <div><div className="ch-label">Studio</div><div className="ch-value">+91 8778785566</div></div>
+                <div><div className="ch-label">Studio</div><div className="ch-value">+91 93426 29275</div></div>
               </a>
               <a className="contact-channel" href="mailto:visswa3104@gmail.com">
                 <div className="ch-icon"><i className="fas fa-envelope"></i></div>
