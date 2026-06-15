@@ -754,13 +754,13 @@ function Contact() {
               with the next practical step.
             </p>
             <div className="contact-channels reveal reveal-delay-3">
-              <a className="contact-channel" href="tel:+917358626592">
-                <div className="ch-icon"><i className="fas fa-phone"></i></div>
-                <div><div className="ch-label">Primary</div><div className="ch-value">+91 73586 26592</div></div>
-              </a>
               <a className="contact-channel" href="tel:+919342629275">
+                <div className="ch-icon"><i className="fas fa-phone"></i></div>
+                <div><div className="ch-label">Primary</div><div className="ch-value">+91 93426 29275</div></div>
+              </a>
+              <a className="contact-channel" href="tel:+9173586 26592">
                 <div className="ch-icon"><i className="fas fa-signal"></i></div>
-                <div><div className="ch-label">Studio</div><div className="ch-value">+91 93426 29275</div></div>
+                <div><div className="ch-label">Studio</div><div className="ch-value">+91 73586 26592</div></div>
               </a>
               <a className="contact-channel" href="mailto:zeptrixinfo@gmail.com">
                 <div className="ch-icon"><i className="fas fa-envelope"></i></div>
